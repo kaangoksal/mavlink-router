@@ -228,6 +228,21 @@ int Endpoint::handle_read()
                           buf.curr.src_compid);
             }
         } else {
+            uint8_t sysid = buf.curr.src_sysid;
+            uint8_t compid = buf.curr.src_compid;
+
+            uint16_t sys_comp_id = ((uint16_t)sysid << 8) | compid;
+
+            if (!has_sys_comp_id(sys_comp_id)) {
+                log_debug("[%s] Message %u to %d/%d from %u/%u will cause a routing change",
+                          _name.c_str(),
+                          buf.curr.msg_id,
+                          buf.curr.target_sysid,
+                          buf.curr.target_compid,
+                          buf.curr.src_sysid,
+                          buf.curr.src_compid);
+            }
+
             _add_sys_comp_id(buf.curr.src_sysid, buf.curr.src_compid);
             Mainloop::get_instance().route_msg(&buf);
         }

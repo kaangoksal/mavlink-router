@@ -88,7 +88,7 @@ instead of editing the systemd file.
 ### Conf File
 
 By default, mavlink-routerd looks for the `/etc/mavlink-router/main.conf` file.
-The file location can be overriden via a `MAVLINK_ROUTER_CONF_FILE` environment
+The file location can be overriden via a `MAVLINK_ROUTERD_CONF_FILE` environment
 variable, or via the `-c` CLI switch when running mavlink-routerd. A
 description of the config file syntax and all parameters can be found in the
 [examples/config.sample](examples/config.sample) file.
@@ -101,10 +101,11 @@ alphabetical order, and can add or override configurations found in previous
 files.
 
 By default, `/etc/mavlink-router/config.d` is the directory, but it can be
-overriden via a `MAVLINK_ROUTER_CONF_DIR` environment variable, or via the `-d`
+overriden via a `MAVLINK_ROUTERD_CONF_DIR` environment variable, or via the `-d`
 switch when running mavlink-routerd.
 
 ### CLI Parameters
+
 
 Please see the output of `mavlink-routerd --help` for the full list of command
 line options. The most important facts are:
@@ -229,20 +230,21 @@ Routing rules:
 
 Message filters:
 
-  - AllowMsgIdOut: If set, only allow messages with the listed message IDs to
-    be sent via this endpoint
-  - AllowSrcCompOut: If set, only allow messages from the listed MAVLink source
-    component IDs to be sent via this endpoint
-  - AllowSrcSysOut: If set, only allow messages from the listed MAVLink source
-    systems to be sent via this endpoint
-  - AllowMsgIdIn: If set, only allow messages with the listed message IDs to
-    be received on this endpoint. Since message ID 0 is not used, only allowing
-    this message ID can be used to block all incoming traffic on this endpoint,
-    e.g. to block interaction with the drone while still receiving telemetry.
-  - AllowSrcCompIn: If set, only allow messages from the listed MAVLink source
-    component IDs to be received on this endpoint
-  - AllowSrcSysIn: If set, only allow messages from the listed MAVLink source
-    systems to be received on this endpoint
+  - There are two points where messages can be filtered on each endpoint:
+    - **In**: Messages which are received (from the outside) on this endpoint are dropped or allowed based on the respecitive filter rules before they'll be routed to other endpoints
+    - **Out**: Messages are dropped or allowed based on the endpoint's filter rules before being transmitted. So this is after internal routing (see "routing rules" chapter above).
+  - A message filter can be based on one of these message identifiers:
+    - **MsgId**: Filter message based on it's MAVLink message ID (message type like HEARTBEAT)
+    - **SrcSys**: Filter message based on it's MAVLink source system ID
+    - **SrcComp**: Filter message based on it's MAVLink source component ID
+  - And a message filter can either be a block- or allow-list:
+    - **Block**: Discard all messages matching the respective identifier (and allow all other ones)
+    - **Allow**: Allow all messages matching the respective identifier (and discard all other ones)
+    - Note that while using "Allow" and "Block" filters on the same identifier 
+    within an endpoint doesn't make sense, using them on different identifiers 
+    can be useful (for example, allowing only specific outgoing SysID, and
+    blocking this system from sending some unwanted message IDs).
+  - So a filter might be named `AllowMsgIdOut` to only allow messages with the listed message ID to be transmitted on that endpoint. See the example config [examples/config.sample](examples/config.sample) for the exact name of each filter parameter.
 
 Message de-duplication:
 
@@ -271,7 +273,9 @@ Message Sniffing:
     to endpoints on which this MAVLink system ID is connected. This can be used to
     log or view all messages flowing though mavlink-router.
 
-### Flight Stack Logging
+### Logging
+
+#### Flight Stack Logging
 
 Mavlink router can also collect flight stack logs. It supports collecting both
 PX4 and Ardupilot flight stacks logs. To start logging, set a directory to the
@@ -287,6 +291,14 @@ logs to `/var/log/flight-stack` directory, one could add to the conf file:
 Logs are collected on `.bin` (for Ardupilot) or `.ulg` (for PX4) files in the
 specified directory. Note that they are named `XXXXX-date-time`, where `XXXXX`
 is an increasing number.
+
+#### Telemetry Logging
+
+Similar to flight stack logging its also possible to write the raw telemetry 
+data as `.tlog` file using the `LogTelemetry` key in the `General` section 
+(or use argument `-T`). Note that this only works if a path using flight
+stack logging is set! 
+All options from flightstack logging apply also here.
 
 
 ## Contributing

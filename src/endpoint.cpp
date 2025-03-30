@@ -474,7 +474,11 @@ void Endpoint::_add_sys_comp_id(uint8_t sysid, uint8_t compid)
                  sniffer_sysid,
                  fd);
     }
-    log_debug("Endpoint [%s %s] Adding sysid: %d compid: %d to known components", _type.c_str(),_name.c_str() ,sysid, compid);
+    log_debug("Endpoint [%s %s] Adding sysid: %d compid: %d to known components", 
+        _type.c_str(),
+        _name.c_str() ,
+        sysid, 
+        compid);
     _sys_comp_ids.push_back(sys_comp_id);
 
     // add to grouped endpoints as well

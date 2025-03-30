@@ -4,7 +4,7 @@ project(
         version: '3',
         license: 'Apache 2.0',
         default_options: [
-                'cpp_std=gnu++11',
+                'cpp_std=gnu++14',
                 'prefix=/usr',
                 'warning_level=2',
                 'buildtype=debugoptimized',
@@ -31,7 +31,7 @@ dep_thread = dependency('threads')
 systemd_system_unit_dir = get_option('systemdsystemunitdir')
 if systemd_system_unit_dir == 'auto'
 		dep_systemd = dependency('systemd')
-		systemd_system_unit_dir = dep_systemd.get_pkgconfig_variable('systemdsystemunitdir')
+		systemd_system_unit_dir = dep_systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
 endif
 
 dep_gtest = dependency('gtest', main : true, required : false)

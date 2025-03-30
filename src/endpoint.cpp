@@ -61,13 +61,19 @@ const ConfFile::OptionsTable UartEndpoint::option_table[] = {
     {"device",          true,  ConfFile::parse_stdstring,       OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, device)},
     {"FlowControl",     false, ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, flowcontrol)},
     {"AllowMsgIdOut",   false, ConfFile::parse_uint32_vector,   OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_msg_id_out)},
+    {"BlockMsgIdOut",   false, ConfFile::parse_uint32_vector,   OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_msg_id_out)},
     {"AllowSrcCompOut", false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_src_comp_out)},
+    {"BlockSrcCompOut", false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_src_comp_out)},
     {"AllowSrcSysOut",  false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_src_sys_out)},
+    {"BlockSrcSysOut",  false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_src_sys_out)},
     {"AllowMsgIdIn",    false, ConfFile::parse_uint32_vector,   OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_msg_id_in)},
+    {"BlockMsgIdIn",    false, ConfFile::parse_uint32_vector,   OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_msg_id_in)},
     {"AllowSrcCompIn",  false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_src_comp_in)},
+    {"BlockSrcCompIn",  false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_src_comp_in)},
     {"AllowSrcSysIn",   false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_src_sys_in)},
+    {"BlockSrcSysIn",   false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_src_sys_in)},
     {"group",           false, ConfFile::parse_stdstring,       OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, group)},
-    {"IgnoreCompId",    false, ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false, ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, ignoreCompid)},
     {}
 };
 
@@ -78,13 +84,19 @@ const ConfFile::OptionsTable UdpEndpoint::option_table[] = {
     {"port",            false,  ConfFile::parse_ul,             OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, port)},
     {"filter",          false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_msg_id_out)}, // legacy AllowMsgIdOut
     {"AllowMsgIdOut",   false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_msg_id_out)},
+    {"BlockMsgIdOut",   false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_msg_id_out)},
     {"AllowSrcCompOut", false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_src_comp_out)},
+    {"BlockSrcCompOut", false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_src_comp_out)},
     {"AllowSrcSysOut",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_src_sys_out)},
+    {"BlockSrcSysOut",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_src_sys_out)},
     {"AllowMsgIdIn",    false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_msg_id_in)},
+    {"BlockMsgIdIn",    false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_msg_id_in)},
     {"AllowSrcCompIn",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_src_comp_in)},
+    {"BlockSrcCompIn",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_src_comp_in)},
     {"AllowSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_src_sys_in)},
+    {"BlockSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_src_sys_in)},
     {"group",           false,  ConfFile::parse_stdstring,      OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, group)},
-    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, ignoreCompid)},
     {}
 };
 
@@ -94,13 +106,19 @@ const ConfFile::OptionsTable TcpEndpoint::option_table[] = {
     {"port",            true,   ConfFile::parse_ul,             OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, port)},
     {"RetryTimeout",    false,  ConfFile::parse_i,              OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, retry_timeout)},
     {"AllowMsgIdOut",   false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_msg_id_out)},
+    {"BlockMsgIdOut",   false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_msg_id_out)},
     {"AllowSrcCompOut", false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_src_comp_out)},
+    {"BlockSrcCompOut", false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_src_comp_out)},
     {"AllowSrcSysOut",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_src_sys_out)},
+    {"BlockSrcSysOut",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_src_sys_out)},
     {"AllowMsgIdIn",    false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_msg_id_in)},
+    {"BlockMsgIdIn",    false,  ConfFile::parse_uint32_vector,  OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_msg_id_in)},
     {"AllowSrcCompIn",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_src_comp_in)},
+    {"BlockSrcCompIn",  false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_src_comp_in)},
     {"AllowSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_src_sys_in)},
+    {"BlockSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_src_sys_in)},
     {"group",           false,  ConfFile::parse_stdstring,      OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, group)},
-    {"IgnoreCompId",    false,  ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, ignoreCompid)},
     {}
 };
 // clang-format on
@@ -216,11 +234,11 @@ int Endpoint::handle_read()
         // check incoming message filters
         if (!allowed_by_dedup(&buf)) {
             if (Log::get_max_level() >= Log::Level::DEBUG) {
-                log_debug("Message %u discarded by de-duplication", buf.curr.msg_id);
+                log_trace("Message %u discarded by de-duplication", buf.curr.msg_id);
             }
         } else if (!allowed_by_incoming_filters(&buf)) {
             if (Log::get_max_level() >= Log::Level::DEBUG) {
-                log_debug("Message %u to %d/%d from %u/%u discarded by incoming filters",
+                log_trace("Message %u to %d/%d from %u/%u discarded by incoming filters",
                           buf.curr.msg_id,
                           buf.curr.target_sysid,
                           buf.curr.target_compid,
@@ -277,7 +295,7 @@ int Endpoint::read_msg(struct buffer *pbuf)
             return r;
         }
 
-        log_debug("> %s [%d]%s: Got %zd bytes", _type.c_str(), fd, _name.c_str(), r);
+        log_trace("> %s [%d]%s: Got %zd bytes", _type.c_str(), fd, _name.c_str(), r);
         rx_buf.len += r;
     }
 
@@ -396,7 +414,7 @@ int Endpoint::read_msg(struct buffer *pbuf)
     target_compid = -1;
 
     if (msg_entry == nullptr) {
-        log_debug("%s [%d]%s: No message entry for %u", _type.c_str(), fd, _name.c_str(), msg_id);
+        log_trace("%s [%d]%s: No message entry for %u", _type.c_str(), fd, _name.c_str(), msg_id);
     } else {
         if (msg_entry->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM) {
             // if target_system is 0, it may have been trimmed out on mavlink2
@@ -456,7 +474,8 @@ void Endpoint::_add_sys_comp_id(uint8_t sysid, uint8_t compid)
                  sniffer_sysid,
                  fd);
     }
-    log_info("%s Adding sysid: %d compid: %d", _name.c_str() ,sysid, compid);
+    log_debug("Endpoint [%s %s] Adding sysid: %d compid: %d to known components",
+        _type.c_str(), _name.c_str(), sysid, compid);
     _sys_comp_ids.push_back(sys_comp_id);
 
     // add to grouped endpoints as well
@@ -488,8 +507,8 @@ bool Endpoint::has_sys_comp_id(unsigned sys_comp_id) const
 
 Endpoint::AcceptState Endpoint::accept_msg(const struct buffer *pbuf) const
 {
-    if (Log::get_max_level() >= Log::Level::DEBUG) {
-        log_debug("Endpoint [%d]%s: got message %u to %d/%d from %u/%u",
+    if (Log::get_max_level() >= Log::Level::TRACE) {
+        log_trace("Endpoint [%d]%s: got message %u to %d/%d from %u/%u",
                   fd,
                   _name.c_str(),
                   pbuf->curr.msg_id,
@@ -497,9 +516,9 @@ Endpoint::AcceptState Endpoint::accept_msg(const struct buffer *pbuf) const
                   pbuf->curr.target_compid,
                   pbuf->curr.src_sysid,
                   pbuf->curr.src_compid);
-        log_debug("\tKnown components:");
+        log_trace("\tKnown components:");
         for (const auto &id : _sys_comp_ids) {
-            log_debug("\t\t%u/%u", (id >> 8), id & 0xff);
+            log_trace("\t\t%u/%u", (id >> 8), id & 0xff);
         }
     }
 
@@ -515,15 +534,33 @@ Endpoint::AcceptState Endpoint::accept_msg(const struct buffer *pbuf) const
         return Endpoint::AcceptState::Filtered;
     }
 
+    // If filter is defined and message is in the set: discard it
+    if (pbuf->curr.msg_id != UINT32_MAX && !_blocked_outgoing_msg_ids.empty()
+        && vector_contains(_blocked_outgoing_msg_ids, pbuf->curr.msg_id)) {
+        return Endpoint::AcceptState::Filtered;
+    }
+
     // If filter is defined and message is not in the set: discard it
     if (pbuf->curr.msg_id != UINT32_MAX && !_allowed_outgoing_src_comps.empty()
         && !vector_contains(_allowed_outgoing_src_comps, pbuf->curr.src_compid)) {
         return Endpoint::AcceptState::Filtered;
     }
 
+    // If filter is defined and message is in the set: discard it
+    if (pbuf->curr.msg_id != UINT32_MAX && !_blocked_outgoing_src_comps.empty()
+        && vector_contains(_blocked_outgoing_src_comps, pbuf->curr.src_compid)) {
+        return Endpoint::AcceptState::Filtered;
+    }
+
     // If filter is defined and message is not in the set: discard it
     if (pbuf->curr.msg_id != UINT32_MAX && !_allowed_outgoing_src_systems.empty()
         && !vector_contains(_allowed_outgoing_src_systems, pbuf->curr.src_sysid)) {
+        return Endpoint::AcceptState::Filtered;
+    }
+
+    // If filter is defined and message is in the set: discard it
+    if (pbuf->curr.msg_id != UINT32_MAX && !_blocked_outgoing_src_systems.empty()
+        && vector_contains(_blocked_outgoing_src_systems, pbuf->curr.src_sysid)) {
         return Endpoint::AcceptState::Filtered;
     }
 
@@ -545,9 +582,11 @@ Endpoint::AcceptState Endpoint::accept_msg(const struct buffer *pbuf) const
         return Endpoint::AcceptState::Accepted;
     }
 
+    // This endpoint has the target of the message (sysid), and ignore component id is enabled: accept
     if(ignore_comp_id && has_sys_id(pbuf->curr.target_sysid)) {
         return Endpoint::AcceptState::Accepted;
     }
+
     // This endpoint has the sniffer_sysid: accept
     if ((sniffer_sysid != 0) && has_sys_id(sniffer_sysid)) {
         return Endpoint::AcceptState::Accepted;
@@ -570,15 +609,33 @@ bool Endpoint::allowed_by_incoming_filters(const buffer *buf) const
         return false;
     }
 
+    // If filter is defined and message is in the set: discard it
+    if (buf->curr.msg_id != UINT32_MAX && !_blocked_incoming_msg_ids.empty()
+        && vector_contains(_blocked_incoming_msg_ids, buf->curr.msg_id)) {
+        return false;
+    }
+
     // If filter is defined and message is not in the set: discard it
     if (!_allowed_incoming_src_comps.empty()
         && !vector_contains(_allowed_incoming_src_comps, buf->curr.src_compid)) {
         return false;
     }
 
+    // If filter is defined and message is in the set: discard it
+    if (!_blocked_incoming_src_comps.empty()
+        && vector_contains(_blocked_incoming_src_comps, buf->curr.src_compid)) {
+        return false;
+    }
+
     // If filter is defined and message is not in the set: discard it
     if (!_allowed_incoming_src_systems.empty()
         && !vector_contains(_allowed_incoming_src_systems, buf->curr.src_sysid)) {
+        return false;
+    }
+
+    // If filter is defined and message is in the set: discard it
+    if (!_blocked_incoming_src_systems.empty()
+        && vector_contains(_blocked_incoming_src_systems, buf->curr.src_sysid)) {
         return false;
     }
 
@@ -681,13 +738,6 @@ UartEndpoint::UartEndpoint(std::string name)
     // nothing else to do here
 }
 
-UartEndpoint::~UartEndpoint()
-{
-    if (fd > 0) {
-        reset_uart(fd);
-    }
-}
-
 bool UartEndpoint::setup(UartEndpointConfig conf)
 {
     if (!this->validate_config(conf)) {
@@ -714,28 +764,42 @@ bool UartEndpoint::setup(UartEndpointConfig conf)
         }
     }
 
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
-    }
-
     for (auto msg_id : conf.allow_msg_id_out) {
         this->filter_add_allowed_out_msg_id(msg_id);
+    }
+    for (auto msg_id : conf.block_msg_id_out) {
+        this->filter_add_blocked_out_msg_id(msg_id);
     }
     for (auto src_comp : conf.allow_src_comp_out) {
         this->filter_add_allowed_out_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_out) {
+        this->filter_add_blocked_out_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_out) {
         this->filter_add_allowed_out_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_out) {
+        this->filter_add_blocked_out_src_sys(src_sys);
     }
 
     for (auto msg_id : conf.allow_msg_id_in) {
         this->filter_add_allowed_in_msg_id(msg_id);
     }
+    for (auto msg_id : conf.block_msg_id_in) {
+        this->filter_add_blocked_in_msg_id(msg_id);
+    }
     for (auto src_comp : conf.allow_src_comp_in) {
         this->filter_add_allowed_in_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_in) {
+        this->filter_add_blocked_in_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_in) {
         this->filter_add_allowed_in_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_in) {
+        this->filter_add_blocked_in_src_sys(src_sys);
     }
 
     this->_group_name = conf.group;
@@ -971,7 +1035,7 @@ int UartEndpoint::write_msg(const struct buffer *pbuf)
                   pbuf->len);
     }
 
-    log_debug("UART [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
+    log_trace("UART [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
 
     return r;
 }
@@ -1034,28 +1098,42 @@ bool UdpEndpoint::setup(UdpEndpointConfig conf)
         return false;
     }
 
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
-    }
-
     for (auto msg_id : conf.allow_msg_id_out) {
         this->filter_add_allowed_out_msg_id(msg_id);
+    }
+    for (auto msg_id : conf.block_msg_id_out) {
+        this->filter_add_blocked_out_msg_id(msg_id);
     }
     for (auto src_comp : conf.allow_src_comp_out) {
         this->filter_add_allowed_out_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_out) {
+        this->filter_add_blocked_out_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_out) {
         this->filter_add_allowed_out_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_out) {
+        this->filter_add_blocked_out_src_sys(src_sys);
     }
 
     for (auto msg_id : conf.allow_msg_id_in) {
         this->filter_add_allowed_in_msg_id(msg_id);
     }
+    for (auto msg_id : conf.block_msg_id_in) {
+        this->filter_add_blocked_in_msg_id(msg_id);
+    }
     for (auto src_comp : conf.allow_src_comp_in) {
         this->filter_add_allowed_in_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_in) {
+        this->filter_add_blocked_in_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_in) {
         this->filter_add_allowed_in_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_in) {
+        this->filter_add_blocked_in_src_sys(src_sys);
     }
 
     this->_group_name = conf.group;
@@ -1283,7 +1361,7 @@ int UdpEndpoint::write_msg(const struct buffer *pbuf)
     }
 
     if (!sock_connected) {
-        log_debug("UDP %s: No one ever connected to us. No one to write for", _name.c_str());
+        log_trace("UDP %s: No one ever connected to us. No one to write for", _name.c_str());
         return 0;
     }
 
@@ -1307,7 +1385,7 @@ int UdpEndpoint::write_msg(const struct buffer *pbuf)
                   pbuf->len);
     }
 
-    log_debug("UDP [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
+    log_trace("UDP [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
 
     return r;
 }
@@ -1392,28 +1470,42 @@ bool TcpEndpoint::setup(TcpEndpointConfig conf)
     this->_port = conf.port;
     this->_retry_timeout = conf.retry_timeout;
 
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
-    }
-
     for (auto msg_id : conf.allow_msg_id_out) {
         this->filter_add_allowed_out_msg_id(msg_id);
+    }
+    for (auto msg_id : conf.block_msg_id_out) {
+        this->filter_add_blocked_out_msg_id(msg_id);
     }
     for (auto src_comp : conf.allow_src_comp_out) {
         this->filter_add_allowed_out_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_out) {
+        this->filter_add_blocked_out_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_out) {
         this->filter_add_allowed_out_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_out) {
+        this->filter_add_blocked_out_src_sys(src_sys);
     }
 
     for (auto msg_id : conf.allow_msg_id_in) {
         this->filter_add_allowed_in_msg_id(msg_id);
     }
+    for (auto msg_id : conf.block_msg_id_in) {
+        this->filter_add_blocked_in_msg_id(msg_id);
+    }
     for (auto src_comp : conf.allow_src_comp_in) {
         this->filter_add_allowed_in_src_comp(src_comp);
     }
+    for (auto src_comp : conf.block_src_comp_in) {
+        this->filter_add_blocked_in_src_comp(src_comp);
+    }
     for (auto src_sys : conf.allow_src_sys_in) {
         this->filter_add_allowed_in_src_sys(src_sys);
+    }
+    for (auto src_sys : conf.block_src_sys_in) {
+        this->filter_add_blocked_in_src_sys(src_sys);
     }
 
     this->_group_name = conf.group;
@@ -1652,7 +1744,7 @@ int TcpEndpoint::write_msg(const struct buffer *pbuf)
                   pbuf->len);
     }
 
-    log_debug("TCP [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
+    log_trace("TCP [%d]%s: Wrote %zd bytes", fd, _name.c_str(), r);
 
     return r;
 }

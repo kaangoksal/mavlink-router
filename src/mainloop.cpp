@@ -30,6 +30,7 @@
 #include <common/util.h>
 
 #include "autolog.h"
+#include "tlog.h"
 
 static std::atomic<bool> should_exit{false};
 
@@ -163,7 +164,7 @@ void Mainloop::route_msg(struct buffer *buf)
 
         switch (acceptState) {
         case Endpoint::AcceptState::Accepted:
-            log_debug("Endpoint [%d] accepted message %u to %d/%d from %u/%u",
+            log_trace("Endpoint [%d] accepted message %u to %d/%d from %u/%u",
                       e->fd,
                       buf->curr.msg_id,
                       buf->curr.target_sysid,
@@ -176,7 +177,7 @@ void Mainloop::route_msg(struct buffer *buf)
             unknown = false;
             break;
         case Endpoint::AcceptState::Filtered:
-            log_debug("Endpoint [%d] filtered out message %u to %d/%d from %u/%u",
+            log_trace("Endpoint [%d] filtered out message %u to %d/%d from %u/%u",
                       e->fd,
                       buf->curr.msg_id,
                       buf->curr.target_sysid,
@@ -193,6 +194,7 @@ void Mainloop::route_msg(struct buffer *buf)
                       buf->curr.target_compid,
                       buf->curr.src_sysid,
                       buf->curr.src_compid);
+            break;
         default:
             break; // do nothing (will count as unknown)
         }
@@ -200,7 +202,7 @@ void Mainloop::route_msg(struct buffer *buf)
 
     if (unknown) {
         _errors_aggregate.msg_to_unknown++;
-        log_debug("Message %u to unknown sysid/compid: %d/%d",
+        log_trace("Message %u to unknown sysid/compid: %d/%d",
                   buf->curr.msg_id,
                   buf->curr.target_sysid,
                   buf->curr.target_compid);
@@ -445,6 +447,12 @@ bool Mainloop::add_endpoints(const Configuration &config)
         }
         this->_log_endpoint->mark_unfinished_logs();
         g_endpoints.emplace_back(this->_log_endpoint);
+
+        if (conf.log_telemetry) {
+            auto tlog_endpoint = std::make_shared<TLog>(conf);
+            tlog_endpoint->mark_unfinished_logs();
+            g_endpoints.emplace_back(tlog_endpoint);
+        }
     }
 
     // Apply other options

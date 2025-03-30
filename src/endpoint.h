@@ -54,7 +54,7 @@ struct UartEndpointConfig {
     std::vector<uint8_t> allow_src_sys_in;
     std::vector<uint8_t> block_src_sys_in;
     std::string group;
-    bool ignorecompid{false};
+    bool ignoreCompid{false};
 };
 
 struct UdpEndpointConfig {
@@ -77,7 +77,7 @@ struct UdpEndpointConfig {
     std::vector<uint8_t> allow_src_sys_in;
     std::vector<uint8_t> block_src_sys_in;
     std::string group;
-    bool ignorecompid{false};
+    bool ignoreCompid{false};
 };
 
 struct TcpEndpointConfig {
@@ -98,7 +98,7 @@ struct TcpEndpointConfig {
     std::vector<uint8_t> allow_src_sys_in;
     std::vector<uint8_t> block_src_sys_in;
     std::string group;
-    bool ignorecompid{false};
+    bool ignoreCompid{false};
 };
 
 /*

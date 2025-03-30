@@ -194,6 +194,7 @@ void Mainloop::route_msg(struct buffer *buf)
                       buf->curr.target_compid,
                       buf->curr.src_sysid,
                       buf->curr.src_compid);
+            break;
         default:
             break; // do nothing (will count as unknown)
         }

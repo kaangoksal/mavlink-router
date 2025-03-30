@@ -73,7 +73,7 @@ const ConfFile::OptionsTable UartEndpoint::option_table[] = {
     {"AllowSrcSysIn",   false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, allow_src_sys_in)},
     {"BlockSrcSysIn",   false, ConfFile::parse_uint8_vector,    OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, block_src_sys_in)},
     {"group",           false, ConfFile::parse_stdstring,       OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, group)},
-    {"IgnoreCompId",    false, ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false, ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(UartEndpointConfig, ignoreCompid)},
     {}
 };
 
@@ -96,7 +96,7 @@ const ConfFile::OptionsTable UdpEndpoint::option_table[] = {
     {"AllowSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, allow_src_sys_in)},
     {"BlockSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, block_src_sys_in)},
     {"group",           false,  ConfFile::parse_stdstring,      OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, group)},
-    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(UdpEndpointConfig, ignoreCompid)},
     {}
 };
 
@@ -118,7 +118,7 @@ const ConfFile::OptionsTable TcpEndpoint::option_table[] = {
     {"AllowSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, allow_src_sys_in)},
     {"BlockSrcSysIn",   false,  ConfFile::parse_uint8_vector,   OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, block_src_sys_in)},
     {"group",           false,  ConfFile::parse_stdstring,      OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, group)},
-    {"IgnoreCompId",    false,  ConfFile::parse_bool,            OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, ignorecompid)},
+    {"IgnoreCompId",    false,  ConfFile::parse_bool,           OPTIONS_TABLE_STRUCT_FIELD(TcpEndpointConfig, ignoreCompid)},
     {}
 };
 // clang-format on
@@ -474,7 +474,7 @@ void Endpoint::_add_sys_comp_id(uint8_t sysid, uint8_t compid)
                  sniffer_sysid,
                  fd);
     }
-    log_info("%s Adding sysid: %d compid: %d", _name.c_str() ,sysid, compid);
+    log_debug("Endpoint [%s %s] Adding sysid: %d compid: %d to known components", _type.c_str(),_name.c_str() ,sysid, compid);
     _sys_comp_ids.push_back(sys_comp_id);
 
     // add to grouped endpoints as well
@@ -581,9 +581,11 @@ Endpoint::AcceptState Endpoint::accept_msg(const struct buffer *pbuf) const
         return Endpoint::AcceptState::Accepted;
     }
 
+    // This endpoint has the target of the message (sysid), and ignore component id is enabled: accept
     if(ignore_comp_id && has_sys_id(pbuf->curr.target_sysid)) {
         return Endpoint::AcceptState::Accepted;
     }
+
     // This endpoint has the sniffer_sysid: accept
     if ((sniffer_sysid != 0) && has_sys_id(sniffer_sysid)) {
         return Endpoint::AcceptState::Accepted;
@@ -759,10 +761,6 @@ bool UartEndpoint::setup(UartEndpointConfig conf)
         if (this->set_flow_control(true) < 0) {
             return false;
         }
-    }
-
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
     }
 
     for (auto msg_id : conf.allow_msg_id_out) {
@@ -1097,10 +1095,6 @@ bool UdpEndpoint::setup(UdpEndpointConfig conf)
     if (!this->open(conf.address.c_str(), conf.port, conf.mode)) {
         log_error("Could not open %s:%ld", conf.address.c_str(), conf.port);
         return false;
-    }
-
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
     }
 
     for (auto msg_id : conf.allow_msg_id_out) {
@@ -1474,10 +1468,6 @@ bool TcpEndpoint::setup(TcpEndpointConfig conf)
     this->_ip = conf.address;
     this->_port = conf.port;
     this->_retry_timeout = conf.retry_timeout;
-
-    if (conf.ignorecompid) {
-        this->ignore_comp_id = conf.ignorecompid;
-    }
 
     for (auto msg_id : conf.allow_msg_id_out) {
         this->filter_add_allowed_out_msg_id(msg_id);

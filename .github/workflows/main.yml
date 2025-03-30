@@ -10,7 +10,7 @@ jobs:
     name: Formatting Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Run clang-format style check on src directory
         uses: jidicula/clang-format-action@v4.11.0
         with:
@@ -18,7 +18,7 @@ jobs:
           check-path: "src"
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: [formatting-check]
     strategy:
       matrix:
@@ -32,7 +32,7 @@ jobs:
           - name: i686
             arch: native
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0  # otherwise the version header just contains the commit hash
@@ -110,14 +110,14 @@ jobs:
 
   alpine-linux:
     name: alpine 3.14 (musl)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: [formatting-check]
     container: alpine:3.14
     steps:
       - name: install dependencies
         run: apk update && apk add build-base git linux-headers pkgconf meson ninja
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0  # otherwise the version header just contains the commit hash
